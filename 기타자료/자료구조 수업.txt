@@ -1,0 +1,832 @@
+#1,20150105 
+자료형 
+
+
+
+01
+
+#include<stdio.h>
+struct Data{//int 형 공간3개를 가지고 있는 구조체 만들기
+ int n1;
+ int n2;
+ int n3;
+};
+void main(){
+ // 정수 값을 3개 정도를 기억해두고 관리
+ 
+ int n1,n2,n3;// int 형 공간을 3개 만들기
+ n1=4;
+ n2=41;
+ n3=77;
+
+ int ar[3];//배열을 사용
+ ar[0]=4;
+ ar[1]=41;
+ ar[2]=77;
+
+ Data d; //**확장자가 cpp일때는 typedef이 자동으로 구조체이름으로 걸림(typedef따로 쓰지 않아도 됨)-구조체(c일경우 typedef도 쓰고 변수선언도 맨위에 해야함-안하면 실패)
+ d.n1=4;
+ d.n2=41;
+ d.n3=77;
+
+}
+
+---------------------
+
+02
+
+#include<stdio.h>
+int main(void)
+{
+int a,b,c;//int형 공간 3개
+double d,e;// double형 공간 2개 만들어서
+a=3;
+b=4;
+c=6;
+d=2.5;
+e=22.5;
+
+int arr[3]; // 배열 사용 arr[0],arr[1],arr[2]
+arr[0]=4;
+arr[1]=44;
+arr[2]=55;
+double brr[2]={33.2,444.2};
+
+printf("a:%d b:%d c:%d\n",a,b,c);// 값 설정(입력scanf or 대입)후 출력
+printf("d:%f e:%f\n",d,e);
+
+printf("a:%d b:%d c:%d\n",arr[0],arr[1],arr[2]);// 배열일때 값 출력 
+printf("d:%f e:%f\n",brr[0],brr[1]);
+
+}
+
+-----------------------------------
+
+03
+
+#include<stdio.h>
+
+// 자료형을 설계해서 사용하는것 가능 :구조체
+struct User{
+ int lv;
+ double exp;
+};
+
+void main(){
+ User t ={3,99.2};//구조체도 만들면서 값 초기화 가능
+
+ User u1,u2;
+ u1.exp =33.2;
+ u2.lv=55;
+
+ User list[3]={{1,33.2}, {42,44.5},{97,22.2}};//초기화 
+
+ list[0].lv =55;
+ list[2].exp =44.2;
+
+ //3칸에 들어있는 값들중에 lv의 합 구하기
+ printf("레벨합: %d \n",list[0].lv +list[1].lv+list[2].lv);
+
+ //3칸에 들어있는 값들중에 exp의 평균구하기 
+ printf("경험치 평균:%f \n",(list[0].exp +list[1].exp +list[2].exp)/3);
+}
+
+ 
+
+--------------------------------------
+
+quiz
+
+#include<stdio.h>
+
+void main(){
+ int n1=2, n2=55, n3=55, n4=41;
+ //4개 평균구하기
+ 
+ printf("%f \n",(n1+n2+n3+n4)/4.0);
+
+ double arr[5]={11.2,44.2,55.1,3.2,55.6};
+ //합 구하기
+ 
+ printf("%f \n",arr[0]+arr[1]+arr[2]+arr[3]+arr[4]);
+}
+
+ 
+-----------------------------------------
+#2, 20150106 
+
+04
+
+#include<stdio.h>
+
+struct Info{
+	int a;
+	double d;
+	char n[20];
+};
+void main(){
+	//기본자료형
+	int n=3;
+	double d=4.2;
+	char na[20]={"윤영호"};
+	printf(" %d, %f, %s \n",n,d,na);
+	printf(" %d, %f, %s \n",&n,&d,&na);//변수앞에 &을 붙이면 실제 생성된 공간의 메모리 주소 확인 가능
+
+	Info i={1,5.2,"홍길동"};
+	printf("%d, %f, %s \n", i.a,i.d,i.n);
+
+	printf("%d, %d, %d \n", &i, &i.a, &i.d);//변수 앞에 &를 붙이면  - 메모리에 생성된 위치를 구할 수 있다.
+	//구조체 변수 전체의 주소를 구하면
+	//변수안을 구성하는 첫번째 공간의 주소와 일치한다.
+
+
+
+}
+
+---------------------------------------
+
+05
+
+#include<stdio.h>
+
+void main(){
+	int *p;//int 의 주소를 저장하는 공간 :p
+	int ar[3];//3개는 정수를 저장하는 공간: ar[0],ar[1],ar[2]
+	// 여기까지 만들어진 공간의 개수는? :4개
+	
+	// 4개의 주소값을 출력하고, 메모리 상태를 그림으로 도식화시켜라
+	printf("p가 생긴곳 : %d\n",&p);
+	printf("배열이 생긴곳 :%d, %d, %d \n",&ar[0],&ar[1],&ar[2]);
+	p= &ar[0]; //ar[0]의 주소를 저장,포인터 변수에 주소값을 저장시켜두면, 연결된 것의 메모리공간에 접근할수 있다.
+	*p=30;//p라는 공간에 연결된 곳에 30값을 저장,포인터변수 앞에 *이라는 기호를 붙여서 실제 메모리에 위치한 값을 사용가능 
+	printf("%d \n",ar[0]);
+	p=&ar[2];//ar[0]에서 ar[2]의 주소로 바뀜
+	*p=44;
+	printf("%d \n",ar[2]);
+}
+--------------------------------------------
+
+quiz02
+
+#include<stdio.h>
+
+void main(){
+	double d =1.1;
+	double arr[5]={2.2,3.3,4.4,5.5,6.6};
+	double *p;//double형 주소 저장 
+	p=&d;//이미 만들어진 공간의 주소를 저장하려면 해당 자료형의 포인터 밖에 없다
+	//해당 자료형의 포인터 밖에 없다 자료형*
+	printf("1) %f \n",*p);//출력: 1.1
+	//printf("@@) %f \n",*d);
+	p=&arr[2];
+	printf("2) %f \n",*p);//출력 :4.4
+	p=&arr[4];
+	printf("3) %f \n",*p);//출력 :6.6
+	p=&arr[0];
+	printf("4) %f \n",*p);//출력 :2.2
+	//어떤 메모리형태를 띄고 있는가?
+}
+
+------------------------------------------
+
+06
+
+#include<stdio.h>
+
+struct Square{//사각형
+	int height; //높이
+	int width; //너비
+};
+void main(){
+	Square s={3,5};
+	Square li[3]={{2,4},{1,5},{4,5}};
+
+	int*m =&s.height;
+	Square *p =&s;
+	
+	//p로 접근해서 실제 메모리 공간에 있는 height, width 
+	printf("%d, %d \n", s.height, s.width);//출력 3,5
+	printf("%d, %d \n", (*p).height,(*p).width);//(우선순위가 바뀌기 때문에 괄호를 써야함)출력 3.5
+
+	p=&li[2];
+	printf("%d, %d \n", (*p).height,(*p).width);//출력 4,5
+
+	//int 형 포인터나, double형 포인터는 불가능하지만,구조체 포인터의 경우에는 더 할수 있는 일이 있다.
+	p->width =5;//*를 쓰지 않아도 됨 
+	p->height =22;
+	printf("%d, %d \n", li[2].height,li[2].width);//p가 li[2]의 주소를 저장하고 있기 때문에 4,5에서 5,22로 값이 바뀐다.
+		
+}
+
+------------------------------------------
+
+07
+
+#include<stdio.h>
+
+struct Po{
+	int *p1;
+	int *p2;
+};
+
+void main(){
+	int ar[5]={1,2,3,4,5};
+	Po z1;
+	z1.p1=&ar[0];
+	z1.p2=&ar[2];
+	Po* p=&z1;
+	
+	//문제 : p를 통해서 배열 ar[0]의 값을 찍으려면 기호를 어떻게 설정?
+
+}
+
+-------------------------------
+#3 20150107
+
+07
+
+#include<stdio.h>
+
+struct Po{
+	int *p1;
+	int *p2;
+};
+
+void main(){
+	int ar[5]={1,2,3,4,5};
+	Po z1;
+	z1.p1=&ar[0];
+	z1.p2=&ar[2];
+	Po* p=&z1;
+	
+	//p를 통해서 배열 ar[0]의 값을 출력시키려면 기호를 어떻게 설정?
+	printf("%d \n", *(p->p1));
+	printf("%d \n", *((*p).p1));
+
+}
+
+-----------------------------------
+
+08
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void main(){
+
+    //포인터 변수에 NULL을 설정한다는 것은 어떠한 곳도 가리키지 않고 있다는 것을 의미한다.
+	int *p=NULL;//NULL은 0과 같다,
+	printf("%d \n",NULL==0);
+	//printf("%d \n",*p);--->에러
+	//포인터 변수는 항상 만들어진 이미 만들어진 곳을 가리켜야 하는가?
+	//동적할당 : 필요할때마다 공간을 만들어서 연결시키는 것도 가능하다.
+	//동적할당 : malloc(); 함수를 사용한다. #include<stdlib.h>를 사용
+	//memory allocate :그 공간을 접근할 수 있는 주소값을 준다.
+	
+	p=(int*)malloc(4); //해당 포인터로 변환해서 사용한다-->((void*)),malloc(4);  4바이트 공간을 만든다. double 형 malloc(8);
+	*p=44;
+	printf("%d \n",*p);//출력: 44
+	p=(int*)malloc(4);//또 공간 한개를 더 만듬
+	p= new int;//위에것과 똑같은 문장 둘다 써도됨 
+	printf("%d \n",*p);//출력: 이상한값
+	
+	printf("%d \n",p);
+	printf("%d \n",*p);
+	float* p2 =(float*)malloc(4);
+	*p2=555.2;
+	printf("%f \n",*p2);
+}
+
+----------------------------------
+
+09
+
+#include<stdio.h>
+#include<stdlib.h>
+
+void main(){
+	int *p1=NULL;
+	int *p2=NULL;
+	int *p3=NULL;
+
+	int val;
+	p1=&val;
+	p2=(int*)malloc(sizeof(int));
+	p3=new int;
+	printf("%d, %d, %d\n",p1,p2,p3);
+
+	*p1=4;
+	*p2=44;
+	*p3=55;
+
+	//사용이 끝나고 나면 free를 해줄 필요가 있다.
+	free(p2);//malloc를 사용하면 자동으로 해제 안됨, 이런식으로 해제를 해줘야 한다,
+	//동적으로 할당된 부분만 해제하면 된다.
+	free(p3);
+	//free(p1); --자동으로 해제되기 때문에 쓰지 않아도 됨
+
+
+
+}
+
+-------------------------
+ +09
+#include<stdio.h>
+#include<stdlib.h>
+
+void main(){
+	int *p1=NULL;
+	int *p2=NULL;
+	int *p3=NULL;
+
+	int val;
+	p1=&val;
+	p2=(int*)malloc(sizeof(int));
+	p3=new int;
+              p3=new int;
+              p3=new int;
+              p3=new int;
+              p3=(int*)malloc(sizeof(int));// 위에 4개는 사용불가, 새로 만든 것만 사용가능하다. 새로 만들면 전에 만든 것은 사용불가하다.
+	printf("%d, %d, %d\n",p1,p2,p3);
+
+	*p1=4;
+	*p2=44;
+	*p3=55;
+
+	//사용이 끝나고 나면 free를 해줄 필요가 있다.
+	free(p2);//malloc를 사용하면 자동으로 해제 안됨, 이런식으로 해제를 해줘야 한다,
+	//동적으로 할당된 부분만 해제하면 된다.
+	free(p3);
+	//free(p1); --자동으로 해제되기 때문에 쓰지 않아도 됨
+
+
+
+}
+----------------------------------
+
+10
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Card{
+	char name[20];
+	int grade;
+	char type[20];
+};
+
+void main(){
+	printf("%d\n", sizeof(Card));
+	Card *p1=NULL;//Card 공간을 가르킬 준비를 함
+	Card *p2=NULL;
+	Card *p3=NULL;
+
+	Card c;
+	p1=&c;
+	p2=(Card*)malloc(sizeof(Card));
+	p3=new Card; //확장자가 cpp일 경우만 가능
+
+	printf("p2에 연결된 카드에 값 설정(이름/등급/타입):");
+	scanf("%s %d %s",&p2->name, &p2->grade, &p2->type);
+
+	p3=p2;
+	printf("%s %d %s\n",&p3->name, &p3->grade, &p3->type);
+
+	free(p2);
+	//free(p3); --해제 끝난 공간 또 해제 하면 문제가 발생할 수 있다. (p3에 p2 복사시켰으므로 p3는 없어짐)
+
+}
+
+-------------------------
+
+11
+
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Card{
+	char name[20];
+	int grade;
+	char type[20];
+};
+
+void main(){
+	int i;
+	for(i=1;i<=5;i++){
+		Card t;
+		printf("%d \n",&t);
+	}
+
+	for(i=1;i<=5;i++){//위에 방법 말고 이와 같이 malloc를 사용해야 계속해서 데이터 공간을 만들수 있다.
+		Card* t=(Card*)malloc(sizeof(Card));//Card *t=new Card; 를 써도된다.
+		printf("%d \n",t);
+	}
+
+	for(i=1;i<=5;i++){
+		Card *t=new Card;
+		printf("%d \n",t);
+	}
+}
+
+-----------------------
+
+12
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Data{
+	int x;
+	Data *next;
+};
+
+void main(){
+	Data* p1 =new Data;
+	p1->x=55;
+	
+	Data* p2=(Data*)malloc(sizeof(Data));//Data* p2 =new Data; 이렇게 써도됨
+	p2->x=66;
+	p1->next=p2;
+
+	Data* p3= new Data;
+	p3 ->x =21;
+	p2 ->next =p3;
+
+	
+	
+	
+	
+	Data *t =p1;//p3를 쓸경우 에러 
+	printf("%d \n", t->x);
+
+	t=t->next;//
+	printf("%d \n",t->x);
+
+	t=t->next;
+	printf("%d \n",t->x);
+
+}
+
+
+
+
+//출력 55 66 21, 데이터형 그려보기
+
+
+------------------------------
+
+#4  20150108
+
+12
+
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Data{
+	int x;
+	Data *next;
+};
+
+void main(){
+	Data* p1 =(Data*)malloc(sizeof(Data));
+	p1->x=55;
+	
+	Data* p2=(Data*)malloc(sizeof(Data));//Data* p2 =new Data; 이렇게 써도됨
+	p2->x=66;
+	p1->next=p2;
+
+	Data* p3=(Data*)malloc(sizeof(Data));
+	p3 ->x =21;
+	p2 ->next =p3;
+
+	
+	
+	
+	
+	Data *t =p1;//p3를 쓸경우 에러 
+	printf("%d \n", t->x);
+
+	t=t->next;//
+	printf("%d \n",t->x);
+
+	t=t->next;
+	printf("%d \n",t->x);
+
+}
+                                                                                                                                                                
+
+
+
+//출력 55 66 21, 데이터형 그려보기
+
+-----------------------------------
+
+stack_basic
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+	int data;
+	Node* link;
+};
+
+void main(){
+	//스택관리를 용이하게 하기 위한 포인터 두개를 만든다.
+	Node *top=NULL;
+	Node *bottom=NULL;
+
+	for(int i=0; i<5; i++){
+		Node *temp=NULL; //데이터가 만들어질때마다 임시적으로 가리킬 포인터
+        temp = (Node *)malloc (sizeof(Node)); //데이터 발생
+	    temp->link=NULL;
+	    scanf("%d",&temp->data);
+	   //데이터 등록(누적)
+	   if(top==NULL && bottom ==NULL){//최초의 등록이라면
+	   top=temp;
+	   bottom=temp;
+	}
+	else{//최초의 등록이 아니라면
+		temp-> link=top; 
+		top=temp;
+	}
+	}
+}
+
++stack basic 
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+	int data;
+	Node* link;
+};
+
+void main (    ) {
+	// 스택관리를 용이하게 하기 위한 포인터 두개
+	Node* top =NULL;
+	Node* bottom = NULL;
+	// 데이터가 만들어질때마다 임시적으로 가리킬 포인터
+	Node* temp =NULL;	
+	
+	for(int i=0; i<5; i++) {
+		// 데이터 발생..!
+		temp = (Node*)malloc(sizeof(Node) );
+		temp->link = NULL;
+		scanf("%d", &temp->data);
+		// 데이터 등록.. 누적..
+		if(top == NULL && bottom ==NULL) {
+			// 최초등록이다..면..
+			top = temp;
+			bottom = temp;
+		}
+		else {
+			// 바꿔야되는게..??
+			temp->link = top;
+			top = temp;
+		}
+	}
+	
+
+
+
+
+}
+
+
+
+---------------------------------------
+#5 20150109
+
++stack basic
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+	int data;
+	Node* link;
+};
+
+void main (    ) {
+	// 스택관리를 용이하게 하기 위한 포인터 두개
+	Node* top =NULL;
+	Node* bottom = NULL;
+	// 데이터가 만들어질때마다 임시적으로 가리킬 포인터
+	Node* temp =NULL;	
+	
+	temp = top;
+	
+
+	for(int i=1; i<=3; i++) {
+		// 데이터 발생..!
+		temp = (Node*)malloc(sizeof(Node) );
+		temp->link = NULL;
+		scanf("%d", &temp->data);
+		// 데이터 등록.. 누적..  push
+		if(top == NULL && bottom ==NULL) {
+			// 최초등록이다..면..
+			top = temp;
+			bottom = temp;
+		}
+		else {
+			// 바꿔야되는게..??
+			temp->link = top;
+			top = temp;
+		}
+	}
+	
+	//------------------------------------------------------
+	// 스택에 쌓여있는 정보 차례대로 출력..top → bottom
+	temp = top;
+	while(1) {
+		if(temp== NULL) {
+			break;
+		}
+		else {
+			printf("%d ", temp->data);
+			temp =temp->link;
+		}
+	}
+	//-------------------------------------------------------
+	// 삭제를 시키겠다는건..    원래 현재 탑에 물려있는 애를 메모리를 해제 하고
+	// top 을 그밑의 놈으로 바꾸것다는 소리다..
+	for(int i=1; i<5; i++) {
+		if(top != NULL) {
+			temp = top;
+			top = top->link;
+			free(temp);	
+		}
+	}
+		
+	//------------------------------------------------------
+	// 스택에 쌓여있는 정보 차례대로 출력..top → bottom
+	temp = top;
+	while(1) {
+		if(temp== NULL) {
+			break;
+		}
+		else {
+			printf("%d ", temp->data);
+			temp =temp->link;
+		}
+	}
+	//-------------------------------------------------------
+
+
+
+}
+
+
+
+
+	//-------------------------------------------------------
+
+
+
+}
+
+/*#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+	int data;
+	Node* link;
+};
+
+void main(){
+	//스택관리를 용이하게 하기 위한 포인터 두개를 만든다.
+	Node *top=NULL;
+	Node *bottom=NULL;
+
+	for(int i=1; i<=3; i++){
+		Node *temp=NULL; //데이터가 만들어질때마다 임시적으로 가리킬 포인터
+        temp = (Node *)malloc (sizeof(Node)); //데이터 발생
+	    temp->link=NULL;//link에는 처음에 NULL 
+	    scanf("%d",&temp->data);
+	   //데이터 등록(누적)
+		if(top==NULL && bottom ==NULL){//최초의 등록이라면
+	      top=temp;
+	      bottom=temp;
+	    }
+	    else{//최초의 등록이 아니라면
+		   temp-> link=top; 
+		   top=temp;
+	    }
+	}
+	
+	//삭제를 시킨다-->원래 현재 탑에 물려있는 것의 메모리를 해제 하고 top을 밑에것으로 바꿈
+	temp = top;
+	top=top->link;
+
+}*/
+
+-------------------------------------------------------------------
+
+stack_advanced
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+	int data;
+	Node* link;
+};
+
+Node* top =NULL;
+Node* bottom = NULL;
+
+void push(Node* target);	// target 으로 넘어오는 넘 등록 로직
+void show() ;	// 전체값 출력하기
+
+int pop();	// 삭제하면서 삭제되는 값 얻어오기 로직
+//-----------------------------------------------------------------
+void main( )   {
+	Node* temp = NULL;
+	int n;
+	while(1) { 
+		printf("현재 맨위의 값:: %d\n",top->data);
+		printf("1.등록 / 2.목록 / 3.삭제 : ");
+		scanf("%d", &n);
+		if(n==1) {
+			temp = (Node*)malloc(sizeof(Node) );
+			temp->link = NULL;
+			scanf("%d", &temp->data);
+			push(temp);
+		}
+		else if(n==2) {
+			show();
+		}
+	}
+}
+
+//-------------------------------------------------------------
+void push(Node* target) {
+	if(top == NULL && bottom ==NULL) {
+			// 최초등록이다..면..
+			top = target;
+			bottom = target;
+		}
+		else {
+			// 바꿔야되는게..??
+			target->link = top;
+			top = target;
+		}
+}
+//-------------------------------------------------------------
+
+void show() {
+	Node* temp = top;
+	while(1) {
+		if(temp== NULL) {
+			printf("\n");
+			break;
+		}
+		else {
+			printf("%d ", temp->data);
+			temp =temp->link;
+		}
+	}
+}
+
+
+
+
+/*#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+	int data;
+	Node* link;
+};
+
+Node* top=NULL;
+Node* bottom=NULL;
+
+void push( Node* target ); //등록로직 : target으로 넘어오는 넘 등록 로직
+int pop();// 삭제로직 : 삭제하면서 삭제되는 겂 얻어오기 로직
+void show();//전체 확인 로직 : 전체값 출력하기
+
+void main( ){
+	if(top == NULL && bottom ==NULL) {
+			//최초등록이라면
+			top = target;
+			bottom = target;
+		}
+		else {
+			//바꿔야하는 것 2가지
+			target->link = top;
+			top = target;
+		}
+	}
+
+
+
+
+}*/
+

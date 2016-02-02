@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define EMPTY	0
+
+typedef struct node{
+	int data;
+	struct node* link;
+}Queue;
+
+Queue * get_node();
+void Que_insert(Queue **front,Queue **rear, int data);
+int Que_delete(Queue **front);
+
+
+Queue * get_node(){
+	Queue *tmp;
+	tmp=(Queue*)malloc(sizeof(Queue));
+	tmp->link=EMPTY;
+	return tmp;
+}
+void Que_insert(Queue **front,Queue **rear, int data){
+	Queue* tmp;
+	if (*front==EMPTY)
+	{
+		*front=get_node();
+		tmp=*front;
+	}
+	else
+	{
+		(*rear)->link=get_node();
+		tmp=(*rear)->link;
+	}
+	*rear=tmp;
+	tmp->data = data;
+}
+
+int Que_delete(Queue **front){
+	Queue *tmp;
+	int temp;
+	
+	tmp=*front;
+	
+	if(*front==EMPTY){
+		printf("Queue is empty!!!!");
+		return 0;
+	}
+	*front=(*front)->link;
+	temp=tmp->data;
+	free(tmp);
+	return  temp;
+}
+
+void main()
+{
+	Queue *front=EMPTY, *rear=EMPTY;
+	
+	Que_insert(&front, &rear, 10);
+	Que_insert(&front, &rear, 20);
+	Que_insert(&front, &rear, 30);
+	
+	printf("%d\n", Que_delete(&front));
+	printf("%d\n", Que_delete(&front));
+	printf("%d\n", Que_delete(&front));
+	printf("%d\n", Que_delete(&front));
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

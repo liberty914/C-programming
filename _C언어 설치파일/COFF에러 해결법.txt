@@ -1,0 +1,5 @@
+http://www.microsoft.com/ko-kr/download/details.aspx?id=23691 에 접속해서
+
+Microsoft Visual Studio 2010 서비스 팩 1(설치 관리자) 를 다운받고, 설치한다.
+
+마이크로소프트 다운로드센터

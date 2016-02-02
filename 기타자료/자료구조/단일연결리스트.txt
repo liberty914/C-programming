@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct node{
+	int data;
+	struct node * link;
+}Linklist;
+
+Linklist *get_node(){
+	Linklist *p;
+	p=(Linklist*)malloc(sizeof(Linklist));
+	p->link=NULL;
+	return p;
+}
+/*
+Linklist * DeleteNode(Linklist * head, int data){
+	Linklist *nextNode;
+	
+	if(head == NULL)
+		printf("Data doesn't exits in the head!!\n");
+	else if(head->data == data){
+		nextNode = head->link;
+		free(head);
+		return nextNode;
+	}
+	else
+		head->link = DeleteNode(head->link,data);
+	return head;  // head를 리턴하지 않으면 결과가 문제가 생긴다.
+}
+*/
+void  DeleteNode(Linklist **head, int data)
+{
+	Linklist *nextNode;
+	if(*head == NULL)
+		printf("지울 데이터가 없음!!\n");
+	else if((*head)->data == data)
+	{
+		nextNode = (*head)->link;
+		free(*head);
+		*head = nextNode;
+	}
+	else
+	{
+		DeleteNode(&((*head)->link) ,data );
+	}
+
+}
+void InsertNode(Linklist **head, int data){
+	if(*head==NULL){
+		*head=get_node();   //*head==head;
+		(*head)->data=data;
+		return;
+	}
+	InsertNode(&(*head)->link,data);
+}
+void AddNode(Linklist **head, int data1, int data2){
+	Linklist *newNode=NULL;
+	if(*head==NULL){
+		printf("It has not data in the head!!\n");
+	}
+	else if((*head)->data==data1){
+		InsertNode(&newNode,data2);
+		newNode->link = (*head)->link;
+		(*head)->link = newNode;
+	}
+	else
+		AddNode(&(*head)->link,data1,data2);
+}
+
+void main(){
+	Linklist * head=NULL;
+	
+	InsertNode(&head,10);
+	InsertNode(&head,20);
+	InsertNode(&head,30);
+	AddNode(&head,10,15);
+	AddNode(&head,20,25);
+	DeleteNode(&head, 10);
+	DeleteNode(&head, 11);
+	DeleteNode(&head, 20);
+	DeleteNode(&head, 30);	
+}

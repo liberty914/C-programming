@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define EMPTY 0
+
+struct node{
+	int data;
+	struct node * link;
+};
+typedef struct node stack;
+
+stack * get_node()
+{
+	stack * tmp;
+	tmp=(stack *)malloc(sizeof(stack)); 
+	tmp->link=EMPTY;
+	return tmp;
+}
+void push(stack **top, int data)
+{
+	stack *tmp;
+	tmp=*top;
+	*top=get_node();
+	(*top)->data=data;
+	(*top)->link=tmp;
+}
+int pop(stack **top)
+{
+	stack *tmp;
+	int num;
+	tmp=*top;
+	if(*top==EMPTY){
+		printf("Stack is empty!!!!");
+		return NULL;
+		//exit(1);
+	}
+	num=tmp->data;
+	*top=(*top)->link;
+	free(tmp);
+	return num;
+}
+
+void main()
+{
+	stack * top=EMPTY;
+	push(&top, 10);
+	push(&top, 20);
+	push(&top, 30);
+	printf("%d",pop(&top));
+	printf("%d",pop(&top));
+	printf("%d",pop(&top));
+	printf("%d",pop(&top));//Stack is Empty!!Ãâ·Â
+}
